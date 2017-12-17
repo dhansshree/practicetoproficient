@@ -1,0 +1,12 @@
+/GeekTrust/CSharp/.vs/GeekTrust/v14/*.suo
+/GeekTrust/CSharp/GeekTrust/bin/Debug/*.exe
+/GeekTrust/CSharp/GeekTrust/bin/Debug/*.config
+/GeekTrust/CSharp/GeekTrust/bin/Debug/*.pdb
+/GeekTrust/CSharp/GeekTrust/bin/Debug/*.manifest
+/GeekTrust/CSharp/GeekTrust/obj/Debug/*.cache
+/GeekTrust/CSharp/GeekTrust/obj/Debug/*.txt
+/GeekTrust/CSharp/GeekTrust/obj/Debug/*.exe
+/GeekTrust/CSharp/GeekTrust/obj/Debug/*.pdb
+/GeekTrust/CSharp/GeekTrust/obj/Debug/*.cs
+/GeekTrust/CSharp/GeekTrustUnitTests/obj/Debug/*.cache
+/GeekTrust/CSharp/GeekTrustUnitTests/obj/Debug/*.cs
