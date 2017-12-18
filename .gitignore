@@ -10,3 +10,13 @@
 /GeekTrust/CSharp/GeekTrust/obj/Debug/*.cs
 /GeekTrust/CSharp/GeekTrustUnitTests/obj/Debug/*.cache
 /GeekTrust/CSharp/GeekTrustUnitTests/obj/Debug/*.cs
+/CutShort/CSharp/OddsAndEvens/OddsAndEvens/bin/Debug/*.exe
+/CutShort/CSharp/OddsAndEvens/OddsAndEvens/bin/Debug/*.config
+/CutShort/CSharp/OddsAndEvens/OddsAndEvens/bin/Debug/*.pdb
+/CutShort/CSharp/OddsAndEvens/OddsAndEvens/bin/Debug/*.manifest
+/CutShort/CSharp/OddsAndEvens/OddsAndEvens/obj/Debug/*.txt
+/CutShort/CSharp/OddsAndEvens/OddsAndEvens/obj/Debug/*.cache
+/CutShort/CSharp/OddsAndEvens/OddsAndEvens/obj/Debug/*.exe
+/CutShort/CSharp/OddsAndEvens/OddsAndEvens/obj/Debug/*.pdb
+/CutShort/CSharp/OddsAndEvens/OddsAndEvens/obj/Debug/*.cs
+/CutShort/CSharp/OddsAndEvens/.vs/CutShort/v14/*.suo
