@@ -11,8 +11,10 @@ namespace GeekTrust
     {
         static void Main(string[] args)
         {
-            TrafficDomain.InitializeForProblem1AndPrintResults();
-            Console.ReadKey();
+            TrafficDomain.InitializeForProblem1Scenario1AndPrintResults();
+            //TrafficDomain.InitializeForProblem1Scenario2AndPrintResults();
+            //TrafficDomain.InitializeForProblem2Scenario1AndPrintResults();
+            //TrafficDomain.InitializeForProblem2Scenario2AndPrintResults();
         }
     }
 }

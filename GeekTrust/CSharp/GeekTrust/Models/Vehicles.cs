@@ -31,7 +31,7 @@ namespace GeekTrust.Models
             {
                 speed = orbit.MaxMegaMilesPerHrAllowed;
             }
-            double timeForRoute = orbit.TotalDistanceinMegaMiles / speed ;
+            double timeForRoute = Convert.ToDouble(orbit.TotalDistanceinMegaMiles) / Convert.ToDouble(speed) ;
             double totalTime = craterTimeInMinutes + ( timeForRoute * 60 );
             return totalTime;
         }

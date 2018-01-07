@@ -12,6 +12,8 @@ namespace GeekTrust.Models
         private int _maxMegaMilesPerHrAllowed;
         private int _noOfCraters;
         private int _totalDistanceinMegaMiles;
+        private List<Destination> _listOfDestionations;
+        
 
         public int NoOfCraters
         {
@@ -65,13 +67,28 @@ namespace GeekTrust.Models
             }
         }
 
-        public Orbit(string name,int noOfCraters, int totalDistanceinMegaMiles)
+        public List<Destination> ListOfDestinations
+        {
+            get
+            {
+                return _listOfDestionations;
+            }
+
+            set
+            {
+                _listOfDestionations = value;
+            }
+        }
+
+        public Orbit(string name,int noOfCraters, int totalDistanceinMegaMiles,List<Destination> listOfDestinations)
         {
             _name = name;
             _noOfCraters = noOfCraters;
             _totalDistanceinMegaMiles = totalDistanceinMegaMiles;
             //Initially both are same
             _maxMegaMilesPerHrAllowed = totalDistanceinMegaMiles;
+            _listOfDestionations = listOfDestinations;
+            
         }
 
         public void AlterNoOfCraters(Weather weather)
