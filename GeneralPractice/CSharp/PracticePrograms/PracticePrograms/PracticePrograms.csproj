@@ -49,11 +49,13 @@
     <Compile Include="FactorialOfCourse.cs" />
     <Compile Include="FibonacciWithMemoization.cs" />
     <Compile Include="FindIndicesOfSumInArray.cs" />
+    <Compile Include="FindLargestInArray.cs" />
     <Compile Include="FindLongestWord.cs" />
     <Compile Include="Palindromes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReverseStringManually.cs" />
+    <Compile Include="TitleCaseASentence.cs" />
     <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>

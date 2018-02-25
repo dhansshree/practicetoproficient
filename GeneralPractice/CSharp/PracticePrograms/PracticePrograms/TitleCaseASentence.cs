@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace PracticePrograms
 {
-    public class FindLongestWord
+    public class TitleCaseASentence
     {
         private string _input;
 
-        public FindLongestWord(string input)
+        public TitleCaseASentence(string input)
         {
             _input = input;
         }
@@ -19,8 +19,8 @@ namespace PracticePrograms
         {
             int i = 0;
             string word = string.Empty;
-            int ordinal = 0;
-            int j = 0;
+            int ordinal = -1;
+            int j = 1;
 
             _input += " "; //Used for termination
 
@@ -32,15 +32,14 @@ namespace PracticePrograms
                 }
                 else
                 {
-                    if (j > word.Length)
-                        word= _input.Substring(ordinal, j);
-                    //word+= _input.Substring(ordinal, j); ;
+                    string title = Char.ToUpperInvariant(_input.ElementAt(ordinal + 1)) + _input.Substring(ordinal + 2, j - 2).ToLowerInvariant() + " ";
+                    word += title;
                     ordinal = i;
                     j = 1;
                 }
                 i++;
             }
-            return word;
+            return word.Remove(word.Length - 1) ; //Remove the one used for termination.
         }
     }
 }
