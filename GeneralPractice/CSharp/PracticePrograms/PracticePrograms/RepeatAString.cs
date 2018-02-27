@@ -9,9 +9,27 @@ namespace PracticePrograms
 {
     public class RepeatAString
     {
-        public RepeatAString()
-        {
+        private string _input;
 
+        public RepeatAString(string input)
+        {
+            _input = input;
+        }
+
+
+        public string Run(int times)
+        {
+            string repeat = "";
+            int i = times;
+            while (i >= 1)
+            {
+                repeat += _input;
+            
+                i--;
+            }
+
+           
+            return repeat;
         }
     }
 }
