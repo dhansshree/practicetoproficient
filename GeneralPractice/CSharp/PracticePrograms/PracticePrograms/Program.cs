@@ -37,7 +37,9 @@ namespace PracticePrograms
 
             //Console.WriteLine(new BinarySearchNonRecursive(new int[] { 4, 5, 5, 7 , 9}).Run(19));
 
-            Console.WriteLine(new ReverseWordsInASentence(new char[] { 't', 'h', 'e', ' ', 'e', 'a', 'g', 'l', 'e', ' ','h', 'a', 's', ' ', 'l', 'a', 'n', 'd', 'e', 'd' }).Run());
+            //Console.WriteLine(new ReverseWordsInASentence(new char[] { 't', 'h', 'e', ' ', 'e', 'a', 'g', 'l', 'e', ' ','h', 'a', 's', ' ', 'l', 'a', 'n', 'd', 'e', 'd' }).Run());
+
+            Console.WriteLine(new RemoveWhiteSpaces(new char[] { ' ','t', 'h', 'e', ' ', 'e', 'a', 'g', 'l', 'e', ' ', 'h', 'a', 's', ' ', 'l', 'a', 'n', 'd', 'e', 'd' ,' ',' '}).Run());
 
         }
 

@@ -57,6 +57,7 @@
     <Compile Include="Palindromes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemoveWhiteSpaces.cs" />
     <Compile Include="RepeatAString.cs" />
     <Compile Include="ReverseStringManually.cs" />
     <Compile Include="ReverseWordsInASentence.cs" />
