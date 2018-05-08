@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using PracticePrograms.BasicDataStructures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,8 +29,17 @@ namespace PracticePrograms
             //jaggedArray[3] = new int[] { 1000, 2001, 857, 1 };
             //Util.PrintResults(new FindLargestNumbersInArray(jaggedArray).Run());
 
-            //Console.WriteLine(new BasicDataStructures.BinarySearchRecursion(new int[] { 4, 5, 1, 3 }).Run(5));
+            //Console.WriteLine(new ConfirmEnding("If you want to save our world, you must hurry. We dont know how much longer we can withstand the nothing").Run("nothing")); ;
 
+            //Console.WriteLine(new RepeatAString("*").Run(3)); ;
+
+            //Console.WriteLine(new BinarySearchRecursive(new int[] { 4 , 5, 5, 7 }).Run(7));
+
+            //Console.WriteLine(new BinarySearchNonRecursive(new int[] { 4, 5, 5, 7 , 9}).Run(19));
+
+            //Console.WriteLine(new ReverseWordsInASentence(new char[] { 't', 'h', 'e', ' ', 'e', 'a', 'g', 'l', 'e', ' ','h', 'a', 's', ' ', 'l', 'a', 'n', 'd', 'e', 'd' }).Run());
+
+            Console.WriteLine(new RemoveWhiteSpaces(new char[] { ' ','t', 'h', 'e', ' ', 'e', 'a', 'g', 'l', 'e', ' ', 'h', 'a', 's', ' ', 'l', 'a', 'n', 'd', 'e', 'd' ,' ',' '}).Run());
 
         }
 
