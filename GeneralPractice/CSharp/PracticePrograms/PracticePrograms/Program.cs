@@ -20,7 +20,7 @@ namespace PracticePrograms
             //Console.WriteLine(new Palindromes("abcba").RunWithRecursion());
             //Console.WriteLine(new FindLongestWord("What if we try a super-long word otorhinolaryngologysuch as otorhinolaryngology").Run());
             //Console.WriteLine(new TitleCaseASentence("HERE IS MY HANDLE HERE IS MY SPOUT").Run());
-            
+
             //int[][] jaggedArray = new int[4][];
             //jaggedArray[0] = new int[] { 4, 5, 1, 3 };
             //jaggedArray[1] = new int[] { 13, 27, 18, 26 };
@@ -28,6 +28,7 @@ namespace PracticePrograms
             //jaggedArray[3] = new int[] { 1000, 2001, 857, 1 };
             //Util.PrintResults(new FindLargestNumbersInArray(jaggedArray).Run());
 
+            //Console.WriteLine(new BasicDataStructures.BinarySearchRecursion(new int[] { 4, 5, 1, 3 }).Run(5));
 
 
         }

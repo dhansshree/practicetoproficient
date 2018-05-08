@@ -1,0 +1,44 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="DisplayMessages">
+  <ItemGroup>
+    <BuildArtifactsDir Include="BuildArtifacts\" />
+    <SolutionFile Include="DawnOfTheApes.sln" />
+    <NUnitConsole Include="packages\NUnit.ConsoleRunner.3.8.0\tools\nunit3-console.exe" />
+    <UnitTestsDLL Include="BuildArtifacts\DawnOfTheApes.UnitTests.dll" />
+    <DataTestsDLL Include="BuildArtifacts\DawnOfTheApes.DataTests.dll" />
+    <TestResultsPath Include="BuildArtifacts\TestResults.xml" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <BuildPlatform Condition=" '$(BuildPlatform)' == '' ">Any CPU</BuildPlatform>
+  </PropertyGroup>
+  
+  
+  <Target Name="Clean">
+    <RemoveDir Directories="@(BuildArtifactsDir)" />
+  </Target>
+  
+  <Target Name="Init" DependsOnTargets="Clean">
+    <MakeDir Directories="@(BuildArtifactsDir)" /> 
+  </Target>
+  
+   <Target Name="Compile" DependsOnTargets="Init">
+    <MSBuild Projects="@(SolutionFile)"
+             Targets="Rebuild"
+             Properties="OutDir=%(BuildArtifactsDir.FullPath);Configuration=$(Configuration);Platform=$(BuildPlatform)" />
+  </Target>
+  
+  <Target Name="RunUnitTests" DependsOnTargets="Compile">
+    <Exec Command='"@(NUnitConsole)" @(UnitTestsDLL) --inprocess' />
+  </Target>
+  
+  <Target Name="RunDataTests" DependsOnTargets="RunUnitTests">
+    <Exec Command='"@(NUnitConsole)" @(DataTestsDLL) --inprocess' />
+  </Target>
+  
+  <Target Name="DisplayMessages" DependsOnTargets="RunDataTests">  
+    <Message Text="BuildArtifacts found in @(BuildArtifactsDir)." />  
+    <Message Text="Unit Tests and Data Tests ran successfully." />  
+  </Target>
+  
+</Project>

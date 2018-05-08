@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DawnOfTheApes", "DawnOfTheApes\DawnOfTheApes.csproj", "{0828052B-86BD-4398-A35C-828F7A7060A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DawnOfTheApes.UnitTests", "DawnOfTheApes.UnitTests\DawnOfTheApes.UnitTests.csproj", "{2054873D-36E0-4C3F-81C3-20785467C7F4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C8879F48-9FBE-4826-B768-A971B0ADC002}"
+	ProjectSection(SolutionItems) = preProject
+		buildme.msbuild = buildme.msbuild
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DawnOfTheApes.DataTests", "DawnOfTheApes.DataTests\DawnOfTheApes.DataTests.csproj", "{306164BE-4DBA-48DF-8F6E-29C2A120182A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0828052B-86BD-4398-A35C-828F7A7060A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0828052B-86BD-4398-A35C-828F7A7060A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0828052B-86BD-4398-A35C-828F7A7060A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0828052B-86BD-4398-A35C-828F7A7060A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2054873D-36E0-4C3F-81C3-20785467C7F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2054873D-36E0-4C3F-81C3-20785467C7F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2054873D-36E0-4C3F-81C3-20785467C7F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2054873D-36E0-4C3F-81C3-20785467C7F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{306164BE-4DBA-48DF-8F6E-29C2A120182A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{306164BE-4DBA-48DF-8F6E-29C2A120182A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{306164BE-4DBA-48DF-8F6E-29C2A120182A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{306164BE-4DBA-48DF-8F6E-29C2A120182A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
