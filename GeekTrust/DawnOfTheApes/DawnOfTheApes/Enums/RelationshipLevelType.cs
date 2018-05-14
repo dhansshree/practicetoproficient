@@ -1,6 +1,6 @@
 ﻿namespace DawnOfTheApes.Models
 {
-    public enum RelationshipLevel
+    public enum RelationshipLevelType
     {
         Same,
         UpBy1,

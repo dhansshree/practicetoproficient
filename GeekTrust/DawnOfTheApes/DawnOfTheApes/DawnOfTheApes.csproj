@@ -43,15 +43,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\ICalculateDownBy1Relationship.cs" />
+    <Compile Include="Interfaces\ICalculateDownBy2Relationship.cs" />
+    <Compile Include="Interfaces\ICalculateSameLevelRelationShip.cs" />
+    <Compile Include="Interfaces\ICalculateUpBy1Relationship.cs" />
+    <Compile Include="Interfaces\IManageRelationship.cs" />
     <Compile Include="Models\Ape.cs" />
     <Compile Include="Models\ApeFamily.cs" />
-    <Compile Include="Models\ApeFamilyTree.cs" />
-    <Compile Include="Models\GenderType.cs" />
-    <Compile Include="Models\RelationshipLevel.cs" />
-    <Compile Include="Models\RelationshipManager.cs" />
-    <Compile Include="Models\RelationshipType.cs" />
+    <Compile Include="Enums\GenderType.cs" />
+    <Compile Include="Enums\RelationshipLevelType.cs" />
+    <Compile Include="Enums\RelationshipType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ApeFamilyAssociationService.cs" />
+    <Compile Include="Services\ApeFamilyService.cs" />
+    <Compile Include="Services\ApeService.cs" />
+    <Compile Include="Interfaces\IService.cs" />
     <Compile Include="Utility.cs" />
   </ItemGroup>
   <ItemGroup>

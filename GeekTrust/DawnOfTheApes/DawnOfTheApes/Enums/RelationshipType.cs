@@ -6,8 +6,6 @@
         Father,
         Brother,
         Sister,
-        Husband,
-        Wife,
         Son,
         Daughter,
         Children,
@@ -20,6 +18,6 @@
         Cousins,
         GrandChildren,
         GrandDaughter,
-        GrandSon
+        GrandSon,
     }
 }

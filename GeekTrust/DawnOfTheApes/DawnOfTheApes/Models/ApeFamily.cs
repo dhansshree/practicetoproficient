@@ -9,15 +9,20 @@ namespace DawnOfTheApes.Models
 
         public List<Ape> Children { get; }
 
-        public ApeFamily(List<Ape> partners, List<Ape> children)
+        public string Name { get; set;  }
+
+        public ApeFamily(string name , List<Ape> partners, List<Ape> children)
         {
+            Name = name;
+
             Partners = partners;
 
-            Ape maleApe = partners.SingleOrDefault(a => a.Gender == GenderType.Male);
-            Ape femaleApe = partners.SingleOrDefault(a => a.Gender == GenderType.Female);
+            Ape maleApe = partners.SingleOrDefault(a => a.GetGender() == GenderType.Male);
+            Ape femaleApe = partners.SingleOrDefault(a => a.GetGender() == GenderType.Female);
 
             maleApe?.AddSpouse(femaleApe);
             femaleApe?.AddSpouse(maleApe);
+
 
             Children = children;
         }

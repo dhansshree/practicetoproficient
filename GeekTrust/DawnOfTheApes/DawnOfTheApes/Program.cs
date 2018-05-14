@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using DawnOfTheApes.Services;
 
 namespace DawnOfTheApes
 {
@@ -12,74 +14,102 @@ namespace DawnOfTheApes
         static void Main(string[] args)
         {
 
-            ApeFamilyTree shawnFamilyTree = Utility.InitializeShanFamilyTreeWithGivenSampleData();
+            ApeService apeService = new ApeService();
+            ApeFamilyService apeFamilyService = new ApeFamilyService(apeService);
+            ApeFamilyAssociationService apeFamilyAssociationService = new ApeFamilyAssociationService(apeFamilyService);
+
             int userInput = 0;
             do
             {
-                userInput = DisplayMenu(shawnFamilyTree);
+                userInput = DisplayMenu(apeService);
                 switch (userInput)
                 {
                     case 1:
-                        Console.WriteLine("Please enter the name of the Ape you want to find relationship for:");
-                        string apeName = Console.ReadLine();
-                        Console.WriteLine("Enter RelationShip Type");
-                        string relationShipType = Console.ReadLine();
+                        try
+                        {
+                            Console.WriteLine("Please enter the name of the Ape you want to find relationship for:");
+                            string apeName = Console.ReadLine();
+                            Console.WriteLine("Enter RelationShip Type");
+                            string relationShipType = Console.ReadLine();
+
+                            Ape ape = apeService.GetElement(apeName);
+
+                            Models.RelationshipType relationship;
+
+                            if(!Enum.TryParse(relationShipType, true, out relationship))
+                                throw new Exception("Invalid Relationship");
+
+                            List<Ape> apes = ape.CalculateRelationship(relationship, apeFamilyAssociationService, apeFamilyService);
+
+                            Utility.PrintName(apes);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e.Message);
+                            Console.WriteLine("We should start from all over");
+                        }
+
+                        break;
+                    case 2:
                         
                         try
                         {
-                            List<Ape> apes =
-                                shawnFamilyTree.DetermineValidityAndFindRelationShips(apeName, relationShipType);
+                            Console.WriteLine("Please enter the name of the parent you want add the family under");
+                            string parent = Console.ReadLine();
+                            Console.WriteLine("Enter child name:");
+                            string child = Console.ReadLine();
+                            Console.WriteLine("Enter child gender:");
+                            string genderType = Console.ReadLine();
 
-                            Models.RelationshipType relationship = Models.RelationshipType.Mother;
-                            Enum.TryParse(relationShipType, true, out relationship);
+                            Ape parentApe = apeService.GetElement(parent);
+                            Models.GenderType gender;
+                            if (!Enum.TryParse(genderType, true, out gender))
+                                throw new Exception("We are not aware of such a gender!!");
 
-                            Utility.PrintName(apes,relationship);
+                            ApeFamily apeFamily = apeFamilyService.GetAll().SingleOrDefault(p => p.Partners.Contains(parentApe));
+
+                            if (apeFamily == null)
+                                throw new Exception("That would be incorrect. Apes are not Godzillas.");
+
+                            Ape newBorn = apeFamily.AddNewBorn(child, parentApe.GetDepthLevel() + 1, gender);
+                            apeFamilyAssociationService.AddElement(child,apeFamily);
+                            apeService.AddElement(newBorn.GetName(),newBorn);
+
+                            Console.WriteLine($"New born {newBorn.GetName()} successfully added to family");
                         }
                         catch (Exception e)
                         {
                             Console.WriteLine(e.Message);
                             Console.WriteLine("We should start from all over");
                         }
-                        break;
-                    case 2:
-                        Console.WriteLine("Please enter the name of the parent you want add the family under");                        
-                        string parent = Console.ReadLine();
-                        Console.WriteLine("Enter child name:");
-                        string child = Console.ReadLine();
-                        Console.WriteLine("Enter child gender:");
-                        string gender = Console.ReadLine();
-                        try
-                        {
-                            Ape newBorn = shawnFamilyTree.DetermineFamilyTreeAndAddNewBorn(parent,child,gender);
-                            Console.WriteLine($"New born {newBorn.Name} successfully added to family");
-                        }
-                        catch (Exception e)
-                        {
-                           Console.WriteLine(e.Message);
-                           Console.WriteLine("We should start from all over");
-                        }
-                        break;
+
+                       break;
                     case 3:
-                        Utility.PrintName(shawnFamilyTree.FindApesWithMaximumGrandChildren());
+                       
+                        Utility.PrintName(apeFamilyService.GetMothersWithMaximumGirlApes());
+
                         break;
 
                     case 4:
-                        Console.WriteLine("Please enter the name of the ape1");
-                        string ape1 = Console.ReadLine();
-                        Console.WriteLine("Please enter the name of the ape1");
-                        string ape2 = Console.ReadLine();
+                      
                         try
                         {
-                            RelationshipType relationshipType = shawnFamilyTree.DetermineValidityAndFindRelationShipsBetweenApes(ape1, ape2);
-                            Utility.PrintName(relationshipType);
+                            Console.WriteLine("Please enter the name of the ape1");
+                            string ape1Name = Console.ReadLine();
+                            Console.WriteLine("Please enter the name of the ape1");
+                            string ape2Name = Console.ReadLine();
+
+                            Ape ape1 = apeService.GetElement(ape1Name);
+                            Ape ape2 = apeService.GetElement(ape2Name);
+
+                            Utility.PrintName(apeFamilyAssociationService.GetRelationshipBetweenApes(ape1, ape2));
+
                         }
                         catch (Exception e)
                         {
                             Console.WriteLine(e.Message);
                             Console.WriteLine("We should start from all over");
                         }
-                        break;
-                    default:
                         break;
                 }
 
@@ -89,15 +119,15 @@ namespace DawnOfTheApes
 
         }
 
-        public static int DisplayMenu(ApeFamilyTree familyTree)
+        public static int DisplayMenu(ApeService apeService)
         {
             Console.WriteLine("");
             Console.WriteLine("--------------------------------");
             Console.WriteLine("Welcome to Shan Family Tree");
             Console.WriteLine("These are the total list of apes , please use exact names");
-            foreach (var ape in familyTree.Apes)
+            foreach (Ape ape in apeService.GetAll())
             {
-                Console.Write(ape.Key + $"\t");
+                Console.Write(ape.GetName() + $"\t");
             }
             Console.WriteLine();
             Console.WriteLine("These are the total list of Relations , please use exact names");
@@ -113,7 +143,10 @@ namespace DawnOfTheApes
             Console.WriteLine("4. Find Relation between two Apes");
             Console.WriteLine("5. Exit");
             var result = Console.ReadLine();
-            return Convert.ToInt32(result);
+            int input;
+            if (Int32.TryParse(result, out input))
+                return input;
+            return 5;
         }
 
     }

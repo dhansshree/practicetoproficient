@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using DawnOfTheApes.Models;
+using DawnOfTheApes.Services;
 
 namespace DawnOfTheApes.DataTests
 {
@@ -13,37 +14,26 @@ namespace DawnOfTheApes.DataTests
         [TestFixture]
         public class SampleDataTests
         {
-            private ApeFamilyTree shawnFamilyTree = null;
-
-            // RelationshipManager.Relationships[RelationshipType.Mother]
-            //Utility.PrintName((Ape)RelationshipManager.Relationships[RelationshipType.Mother].DynamicInvoke(ish),RelationshipType.Mother);
-            //Utility.PrintName((Ape)RelationshipManager.Relationships[RelationshipType.Father].DynamicInvoke(ish),RelationshipType.Father);
-            //Utility.PrintName((List<Ape>)RelationshipManager.Relationships[RelationshipType.Sister].DynamicInvoke(ish),RelationshipType.Sister);
-            //Utility.PrintName((List<Ape>)RelationshipManager.Relationships[RelationshipType.Brother].DynamicInvoke(ish),RelationshipType.Brother);
-            //Ape king = shawnFamilyTree.Apes["King Shan"];
-            //Utility.PrintName((Ape)RelationshipManager.Relationships[RelationshipType.Mother].DynamicInvoke(king), RelationshipType.Mother);
-            //Utility.PrintName((Ape)RelationshipManager.Relationships[RelationshipType.Father].DynamicInvoke(king), RelationshipType.Father);
-            //Utility.PrintName((List<Ape>)RelationshipManager.Relationships[RelationshipType.Sister].DynamicInvoke(king), RelationshipType.Sister);
-            //Utility.PrintName((List<Ape>)RelationshipManager.Relationships[RelationshipType.Brother].DynamicInvoke(king), RelationshipType.Brother);
-            //Utility.PrintName((List<Ape>)RelationshipManager.Relationships[RelationshipType.Children].DynamicInvoke(king,shawnFamilyTree.GetApeFamilies()), RelationshipType.Children);
-            //Utility.PrintName((List<Ape>)RelationshipManager.Relationships[RelationshipType.Son].DynamicInvoke(king, shawnFamilyTree.GetApeFamilies()), RelationshipType.Son);
-            //Utility.PrintName((List<Ape>)RelationshipManager.Relationships[RelationshipType.Daughter].DynamicInvoke(king, shawnFamilyTree.GetApeFamilies()), RelationshipType.Daughter);
-            //Utility.PrintName((List<Ape>)RelationshipManager.Relationships[RelationshipType.PaternalUncle].DynamicInvoke(driya, shawnFamilyTree.GetApeFamilies(),shawnFamilyTree.Apes), RelationshipType.PaternalUncle);
-
+            private ApeService _apeService;
+            private ApeFamilyService _apeFamilyService;
+            private ApeFamilyAssociationService _apeFamilyAssociationService;
 
             [SetUp]
             public void Arrange()
             {
-               shawnFamilyTree = Utility.InitializeShanFamilyTreeWithGivenSampleData();
+                _apeService = new ApeService();
+                _apeFamilyService = new ApeFamilyService(_apeService);
+                _apeFamilyAssociationService = new ApeFamilyAssociationService(_apeFamilyService);
             }
+
 
             [Test]
             public void AssertBrothersOfIshAreCorrect()
             {
-                Ape ish = shawnFamilyTree.Apes["Ish"];
-                Ape chit = shawnFamilyTree.Apes["Chit"];
-                Ape vich = shawnFamilyTree.Apes["Vich"];
-                Assert.That((List<Ape>)RelationshipManager.Relationships[RelationshipType.Brother].DynamicInvoke(shawnFamilyTree,ish), Is.EqualTo(new List<Ape>() { chit,vich}));
+                Ape ish = _apeService.GetElement("Ish");
+                Ape chit = _apeService.GetElement("Chit");
+                Ape vich = _apeService.GetElement("Vich");
+                Assert.That(ish.GetSiblings(GenderType.Male,_apeFamilyAssociationService), Is.EqualTo(new List<Ape>() { chit,vich}));
             }
 
             
@@ -51,14 +41,12 @@ namespace DawnOfTheApes.DataTests
             [Test]
             public void AssertAbilityToFindAllMothersWithMaxGirlChildren()
             {
-                Ape jaya = shawnFamilyTree.Apes["Jaya"];
-                Ape jnki = shawnFamilyTree.Apes["Jnki"];
-                Ape satya = shawnFamilyTree.Apes["Satya"];
-                Ape lika = shawnFamilyTree.Apes["Lika"];
+                Ape jaya = _apeService.GetElement("Jaya");
+                Ape jnki = _apeService.GetElement("Jnki");
+                Ape satya = _apeService.GetElement("Satya");
+                Ape lika = _apeService.GetElement("Lika");
 
-                List<Ape> f = shawnFamilyTree.FindApesWithMaximumGrandChildren();
-                Assert.That(new List<Ape>() {lika ,satya  , jaya , jnki}, Is.EqualTo(shawnFamilyTree.FindApesWithMaximumGrandChildren()));
-
+                Assert.That(new List<Ape>() {satya , lika , jaya , jnki}, Is.EqualTo(_apeFamilyService.GetMothersWithMaximumGirlApes()));
                
 
             }
@@ -66,18 +54,23 @@ namespace DawnOfTheApes.DataTests
             [Test]
             public void AssertAbilityToAddNewBornToLavanya()
             {
-                Ape lavnya = shawnFamilyTree.Apes["Lavnya"];
+                Ape lavnya = _apeService.GetElement("Lavnya");
 
-                Assert.That(new List<Ape>(), Is.EqualTo((List<Ape>)RelationshipManager.Relationships[RelationshipType.Daughter].DynamicInvoke(shawnFamilyTree, lavnya)));
+                Assert.That(new List<Ape>(), Is.EqualTo(lavnya.GetChildren(GenderType.Female,_apeFamilyService)));
 
-                shawnFamilyTree.DetermineFamilyTreeAndAddNewBorn(lavnya.Name, "Vanya", GenderType.Female.ToString());
+                ApeFamily apeFamily = _apeFamilyService.GetAll().SingleOrDefault(p => p.Partners.Contains(lavnya));
+                Ape newBorn = apeFamily?.AddNewBorn("Vanya", lavnya.GetDepthLevel() + 1, GenderType.Female);
+                _apeFamilyAssociationService.AddElement(newBorn?.GetName(), apeFamily);
+                _apeService.AddElement(newBorn?.GetName(), newBorn);
 
-                Ape vanya = shawnFamilyTree.Apes["Vanya"];
+                Ape vanya = _apeService.GetElement("Vanya");
 
-                Assert.That(new List<Ape>() { vanya }, Is.EqualTo((List<Ape>)RelationshipManager.Relationships[RelationshipType.Daughter].DynamicInvoke(shawnFamilyTree, lavnya)));
+                Assert.That(new List<Ape>() { vanya }, Is.EqualTo(lavnya.GetChildren(GenderType.Female,_apeFamilyService)));
 
-                Ape jnki = shawnFamilyTree.Apes["Jnki"];
-                Assert.That(new List<Ape>() { vanya }, Is.EqualTo((List<Ape>)RelationshipManager.Relationships[RelationshipType.GrandChildren].DynamicInvoke(shawnFamilyTree, jnki)));
+                Ape jnki = _apeService.GetElement("Jnki");
+
+                Assert.That(new List<Ape>() { vanya },
+                    Is.EqualTo(jnki.GetGrandChildren(GenderType.Female, _apeFamilyService)));
 
             }
 
@@ -85,15 +78,16 @@ namespace DawnOfTheApes.DataTests
             [Test]
             public void AssertPaternalUncleOfKriyaisSaayan()
             {
-                Ape kriya = shawnFamilyTree.Apes["Kriya"];
-                Ape saayan = shawnFamilyTree.Apes["Saayan"];
-                Ape asva = shawnFamilyTree.Apes["Asva"];
+                Ape kriya = _apeService.GetElement("Kriya");
+                Ape saayan = _apeService.GetElement("Saayan");
+                Ape asva = _apeService.GetElement("Asva");
 
-                Assert.That(new List<Ape>() { saayan ,asva }, Is.EqualTo((List<Ape>)RelationshipManager.Relationships[RelationshipType.PaternalUncle].DynamicInvoke(shawnFamilyTree, kriya)));
+                List<Ape> parent = kriya.GetParent(GenderType.Male, _apeFamilyAssociationService);
+
+                Assert.That(new List<Ape>() { saayan ,asva }, Is.EqualTo(kriya.GetUncleOrAuntOnMaternalOrPaternalSide(GenderType.Male,_apeFamilyAssociationService,parent.ElementAt(0))));
 
                 Assert.That(RelationshipType.PaternalUncle,
-                    Is.EqualTo(
-                        shawnFamilyTree.DetermineValidityAndFindRelationShipsBetweenApes(kriya.Name, saayan.Name)));
+                    Is.EqualTo(_apeFamilyAssociationService.GetRelationshipBetweenApes(kriya,saayan)));
             }
         }
     }
