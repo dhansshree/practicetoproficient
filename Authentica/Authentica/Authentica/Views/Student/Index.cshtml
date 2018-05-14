@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Authentica.Models.Student>
+@{
+    ViewBag.Title = "Students";
+}
+<h2>Students</h2>
+@if (Model == null)
+{
+    <h2>No records found</h2>
+}
+else
+{
+<table class="table">
+    <tr>
+        <th>
+           Last Name
+        </th>
+        <th>
+            First Name
+        </th>
+        <th>
+            Grade
+        </th>
+        <th>
+            School Name
+        </th>
+        <th>
+            Actions
+        </th>
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Grade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SchoolName)
+            </td>
+            <td>
+                @Html.ActionLink("Enrollment", "Enrollment", new { id = item.StudentId }) |
+                @Html.ActionLink("Assignment History", "Assignment", new { id = item.StudentId })
+            </td>
+        </tr>
+    }
+
+</table>
+}
+<br />

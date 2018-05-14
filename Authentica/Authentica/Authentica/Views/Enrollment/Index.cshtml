@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Authentica.Models.Enrollment>
+@{
+    ViewBag.Title = "Enrollments";
+}
+<h2>Assignments</h2>
+@if (Model == null)
+{
+    <h2>No records found</h2>
+}
+else
+{
+<table class="table">
+    <tr>
+        <th>
+            Entry Date
+        </th>
+        <th>
+            Exit Date
+        </th>
+        <th>
+            Exit Reason
+        </th>
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EntryDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExitDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExitReason)
+            </td>
+        </tr>
+    }
+
+</table>
+<br />
+}

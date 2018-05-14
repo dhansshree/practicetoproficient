@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Authentica.Models.Assignment>
+@{
+    ViewBag.Title = "Assignments";
+}
+<h2>Assignments</h2>
+@if (Model == null)
+{
+    <h2>No records found</h2>
+}
+else
+{
+<table class="table">
+    <tr>
+        <th>
+            Assignment Name
+        </th>
+        <th>
+            Due Date
+        </th>
+        <th>
+            Completion Data
+        </th>
+        <th>
+            Earned Score
+        </th>
+        <th>
+            Max Score
+        </th>
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssignmentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DueDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompletionDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ScoreEarned)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxScore)
+            </td>
+        </tr>
+    }
+
+</table>
+<br />
+}
